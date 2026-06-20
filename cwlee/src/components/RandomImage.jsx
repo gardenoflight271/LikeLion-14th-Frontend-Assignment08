@@ -35,7 +35,7 @@ export default function RandomImage() {
 
                 className="underline flex items-center gap-2 hover:text-gray-300"
             >
-                <MdArrowOutward />View on NASA
+                <MdArrowOutward />View from NASA
             </a>
         </div>
     );
