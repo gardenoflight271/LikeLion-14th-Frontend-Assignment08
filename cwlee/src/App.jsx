@@ -49,7 +49,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="w-0.7 max-w-2xl flex flex-col items-center justify-center m-16 font-bn">
+      <div className="w-0.9 max-w-2xl flex flex-col items-center justify-center m-8 mt-16 font-bn">
         <h1 className="text-4xl pb-10 font-extrabold">
           NASA Random Space Photo
         </h1>
