@@ -1,10 +1,7 @@
 import store from "../store/store";
 import { MdArrowOutward } from "react-icons/md";
 
-export default function RandomImage() {
-    const currentImage = store(
-        (state) => state.currentImage
-    );
+export default function RandomImage({ currentImage, }) {
 
     if (!currentImage) {
         return null;

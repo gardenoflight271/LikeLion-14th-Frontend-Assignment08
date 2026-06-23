@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import CategorySelector from "./components/CategorySelector";
 import RandomImage from "./components/RandomImage";
 import Loading from "./components/Loading";
@@ -9,42 +7,28 @@ import { fetchRandomImage } from "./services/nasaApi";
 
 import store from "./store/store";
 
+import { useQuery } from "@tanstack/react-query";
+
 export default function App() {
+  const { category } = store();
+
   const {
-    category,
-    setCurrentImage,
-    setLoading,
-    setError,
-    loading,
+    data: currentImage,
+    isLoading,
     error,
-  } = store();
+    refetch,
+  } = useQuery({
+    queryKey: ["space-image", category],
+    queryFn: () =>
+      fetchRandomImage(category),
+  });
 
 
-  const getRandomImage = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const randomImage =
-        await fetchRandomImage(category);
-
-      setCurrentImage(randomImage);
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getRandomImage();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
   if (error) {
-    return <Error message={error} />;
+    return <Error message={error.message} />;
   }
 
   return (
@@ -59,15 +43,15 @@ export default function App() {
           />
 
           <button
-            onClick={getRandomImage}
+            onClick={() => refetch()}
             className="bg-white text-black rounded-lg px-4 py-2 hover:bg-gray-300"
           >
             New Image
           </button>
         </div>
 
-        <RandomImage />
+        <RandomImage currentImage={currentImage} />
       </div>
-    </div>
+    </div >
   );
 }
